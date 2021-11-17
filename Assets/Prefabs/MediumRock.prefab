@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5183611237633681111}
   - component: {fileID: 5585173349314066954}
   - component: {fileID: 7968937461964267325}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MediumRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
