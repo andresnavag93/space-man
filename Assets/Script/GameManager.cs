@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public GameState currentGameState = GameState.menu;
 
+    private PlayerController controller;
+
     public static GameManager sharedInstance;
     // Start is called before the first frame update
 
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        controller = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         else if (newGameState == GameState.inGame)
         {
-            //TODO: game logic
+            controller.StartGame();
         }
         else if (newGameState == GameState.gameOver)
         {

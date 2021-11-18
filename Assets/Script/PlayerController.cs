@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 6f;
     public float runningSpeed = 2f;
 
-    Rigidbody2D rigidBody;
-    public LayerMask groundMask;
-
     [SerializeField]
     float raycastLong = 1.5f;
+
+    Rigidbody2D rigidBody;
+    public LayerMask groundMask;
     Animator animator;
+    Vector3 startPosition;
 
     const string STATE_ALIVE = "isAlive";
     const string STATE_ON_THE_GROUND = "isOnTheGround";
@@ -27,11 +28,20 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startPosition = this.transform.position;
+    }
+
+    public void StartGame() {
         animator.SetBool(STATE_ALIVE, true);
         animator.SetBool(STATE_ON_THE_GROUND, true);
         animator.SetBool(STATE_RUNNING, false);
+        Invoke("RestartPosition", 0.1f);
     }
 
+    void RestartPosition(){
+        this.transform.position = startPosition;
+        this.rigidBody.velocity = Vector2.zero;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -111,5 +121,10 @@ public class PlayerController : MonoBehaviour
             // animator.enabled = false;
             return false;
         }
+    }
+
+    public void Die() {
+        animator.SetBool(STATE_ALIVE, false);
+        GameManager.sharedInstance.GameOver();
     }
 }
