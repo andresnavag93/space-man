@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Jump") && GameManager.sharedInstance.currentGameState == GameState.inGame)
         {
             Jump();
         }
@@ -46,32 +46,45 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        move();
+        if (GameManager.sharedInstance.currentGameState == GameState.inGame)
+        {
+            move();
+        }
+        else
+        { // If we are not in game
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+        }
         //moveWithKey();
     }
 
-    void move() {
-        
-        if ( rigidBody.velocity.x < runningSpeed) {
+    void move()
+    {
+
+        if (rigidBody.velocity.x < runningSpeed)
+        {
             animator.SetBool(STATE_RUNNING, true);
-            rigidBody.velocity = new Vector2( runningSpeed, rigidBody.velocity.y );
+            rigidBody.velocity = new Vector2(runningSpeed, rigidBody.velocity.y);
         }
     }
-    
-    void moveWithKey() {
 
-        if (rigidBody.velocity.x == 0 && isTouchingTheGround()) {
+    void moveWithKey()
+    {
+
+        if (rigidBody.velocity.x == 0 && isTouchingTheGround())
+        {
             animator.SetBool(STATE_RUNNING, false);
         }
 
-        rigidBody.velocity = new Vector2 ( Input.GetAxis("Horizontal")*runningSpeed, rigidBody.velocity.y );
+        rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * runningSpeed, rigidBody.velocity.y);
 
-        if (Input.GetAxis("Horizontal") < 0){
+        if (Input.GetAxis("Horizontal") < 0)
+        {
             animator.SetBool(STATE_RUNNING, true);
             GetComponent<SpriteRenderer>().flipX = true;
         }
 
-        else if (Input.GetAxis("Horizontal") > 0){
+        else if (Input.GetAxis("Horizontal") > 0)
+        {
             animator.SetBool(STATE_RUNNING, true);
             GetComponent<SpriteRenderer>().flipX = false;
         }

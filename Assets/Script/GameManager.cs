@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum GameState {
-    menu, 
+public enum GameState
+{
+    menu,
     inGame,
     gameOver
 }
@@ -13,36 +14,67 @@ public class GameManager : MonoBehaviour
 {
 
     public GameState currentGameState = GameState.menu;
+
+    public static GameManager sharedInstance;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (sharedInstance == null)
+        {
+            sharedInstance = this;
+        }
+    }
+
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Submit") && currentGameState != GameState.inGame)
+        {
+            StartGame();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            BackToMenu();
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameOver();
+        }
     }
 
-    void StartGame(){
-
+    public void StartGame()
+    {
+        SetGameState(GameState.inGame);
     }
 
-    void BackToMenu() {
-
+    public void GameOver()
+    {
+        SetGameState(GameState.gameOver);
     }
 
-    void GameOver() {
-
+    public void BackToMenu()
+    {
+        SetGameState(GameState.menu);
     }
 
-    private void SetGameState(GameState newGameState) {
-        if(newGameState == GameState.menu) {
+    private void SetGameState(GameState newGameState)
+    {
+        if (newGameState == GameState.menu)
+        {
             //TODO: menu logic
-        } else if(newGameState == GameState.inGame) {
+        }
+        else if (newGameState == GameState.inGame)
+        {
             //TODO: game logic
-        } else if(newGameState == GameState.gameOver) {
+        }
+        else if (newGameState == GameState.gameOver)
+        {
             //TODO: game over logic
         }
 
