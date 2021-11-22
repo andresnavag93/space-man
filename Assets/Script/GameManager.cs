@@ -73,7 +73,9 @@ public class GameManager : MonoBehaviour
         }
         else if (newGameState == GameState.inGame)
         {
-            controller.StartGame();
+            LevelManager.sharedInstance.RemoveAllLevelBlocks();
+            ReloadLevel();
+            //Invoke("ReloadLevel", 0.1f); 
         }
         else if (newGameState == GameState.gameOver)
         {
@@ -81,5 +83,11 @@ public class GameManager : MonoBehaviour
         }
 
         this.currentGameState = newGameState;
+    }
+
+    void ReloadLevel()
+    {
+        LevelManager.sharedInstance.GenerateInitialBlocks();
+        controller.StartGame();
     }
 }

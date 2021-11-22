@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
     void RestartPosition(){
         this.transform.position = startPosition;
         this.rigidBody.velocity = Vector2.zero;
+
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.GetComponent<CameraFollow>().ResetCameraPosition();
     }
     // Update is called once per frame
     void Update()

@@ -28,42 +28,54 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void AddLevelBlock(){
+    public void AddLevelBlock()
+    {
         int ramdomIdx = Random.Range(0, allTheLevelBlocks.Count);
 
         LevelBlock block;
         Vector3 spawnPosition = Vector3.zero;
 
-        if(currentLevelBlocks.Count == 0) {
+        if (currentLevelBlocks.Count == 0)
+        {
             block = Instantiate(allTheLevelBlocks[0]);
             spawnPosition = levelStartPosition.position;
-        } else {
+        }
+        else
+        {
             block = Instantiate(allTheLevelBlocks[ramdomIdx]);
             spawnPosition = currentLevelBlocks[currentLevelBlocks.Count - 1].endPoint.position;
         }
 
         block.transform.SetParent(this.transform, false);
         Vector3 correction = new Vector3(
-            spawnPosition.x - block.startPoint.position.x, 
+            spawnPosition.x - block.startPoint.position.x,
             spawnPosition.y - block.startPoint.position.y,
-            0); 
+            0);
         block.transform.position = correction;
         currentLevelBlocks.Add(block);
     }
 
-    public void RemoveLevelBlock(){
-        
+    public void RemoveLevelBlock()
+    {
+        LevelBlock oldBlock = currentLevelBlocks[0];
+        currentLevelBlocks.Remove(oldBlock);
+        Destroy(oldBlock.gameObject);
     }
 
-    public void RemoveAllLevelBlocks(){
-        
+    public void RemoveAllLevelBlocks()
+    {
+        while (currentLevelBlocks.Count > 0)
+        {
+            RemoveLevelBlock();
+        }
     }
 
-    public void GenerateInitialBlocks(){
-        for (int i = 0; i < 20; i++)
+    public void GenerateInitialBlocks()
+    {
+        for (int i = 0; i < 2; i++)
         {
             AddLevelBlock();
         }
