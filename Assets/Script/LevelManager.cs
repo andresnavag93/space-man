@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GenerateInitialBlocks();
     }
 
     // Update is called once per frame
@@ -32,7 +32,26 @@ public class LevelManager : MonoBehaviour
     }
 
     public void AddLevelBlock(){
+        int ramdomIdx = Random.Range(0, allTheLevelBlocks.Count);
 
+        LevelBlock block;
+        Vector3 spawnPosition = Vector3.zero;
+
+        if(currentLevelBlocks.Count == 0) {
+            block = Instantiate(allTheLevelBlocks[0]);
+            spawnPosition = levelStartPosition.position;
+        } else {
+            block = Instantiate(allTheLevelBlocks[ramdomIdx]);
+            spawnPosition = currentLevelBlocks[currentLevelBlocks.Count - 1].endPoint.position;
+        }
+
+        block.transform.SetParent(this.transform, false);
+        Vector3 correction = new Vector3(
+            spawnPosition.x - block.startPoint.position.x, 
+            spawnPosition.y - block.startPoint.position.y,
+            0); 
+        block.transform.position = correction;
+        currentLevelBlocks.Add(block);
     }
 
     public void RemoveLevelBlock(){
@@ -44,7 +63,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void GenerateInitialBlocks(){
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 20; i++)
         {
             AddLevelBlock();
         }
