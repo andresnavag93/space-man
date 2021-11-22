@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private PlayerController controller;
 
     public static GameManager sharedInstance;
+
+    public int collectedObject = 0;
     // Start is called before the first frame update
 
     void Awake()
@@ -92,5 +94,9 @@ public class GameManager : MonoBehaviour
     {
         LevelManager.sharedInstance.GenerateInitialBlocks();
         controller.StartGame();
+    }
+
+    public void  CollectObject(Collectable collectable){
+        collectedObject += collectable.value;
     }
 }
