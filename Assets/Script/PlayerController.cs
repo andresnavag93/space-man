@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     const string STATE_ON_THE_GROUND = "isOnTheGround";
     const string STATE_RUNNING = "isRunning";
 
+    [SerializeField]
     private int healthPoints, manaPoints;
     public const int INITIAL_HEALTH = 100, INITIAL_MANA = 15,
         MAX_HEALTH = 200, MAX_MANA = 30,
@@ -134,6 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isTouchingTheGround())
             {
+                GetComponent<AudioSource>().Play();
                 rigidBody.AddForce(Vector2.up * jumpForceFactor, ForceMode2D.Impulse);
             }
         }
@@ -172,6 +174,10 @@ public class PlayerController : MonoBehaviour
         if (this.healthPoints >= MAX_HEALTH)
         {
             this.healthPoints = MAX_HEALTH;
+        }
+
+        if (this.healthPoints <= 0){
+            Die();
         }
     }
 
