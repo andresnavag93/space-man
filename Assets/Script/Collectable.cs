@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum CollectableType {
+public enum CollectableType
+{
     healthPotion,
     manaPotion,
     money
@@ -17,6 +18,7 @@ public class Collectable : MonoBehaviour
     bool hasBeenCollected = false;
 
     public int value = 1;
+    GameObject player;
 
     void Awake()
     {
@@ -24,18 +26,25 @@ public class Collectable : MonoBehaviour
         itemCollider = GetComponent<CircleCollider2D>();
     }
 
-    void Show(){
+    void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+    void Show()
+    {
         sprite.enabled = true;
         itemCollider.enabled = true;
         hasBeenCollected = false;
     }
 
-    void Hide() {
+    void Hide()
+    {
         sprite.enabled = false;
         itemCollider.enabled = false;
     }
 
-    void Collect() {
+    void Collect()
+    {
         Hide();
         hasBeenCollected = true;
 
@@ -45,8 +54,10 @@ public class Collectable : MonoBehaviour
                 GameManager.sharedInstance.CollectObject(this);
                 break;
             case CollectableType.healthPotion:
+                player.GetComponent<PlayerController>().CollectHealth(this.value);
                 break;
             case CollectableType.manaPotion:
+                player.GetComponent<PlayerController>().CollectMana(this.value);
                 break;
             default:
                 break;
@@ -55,8 +66,9 @@ public class Collectable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if ( other.tag == "Player") {
-            Collect();   
+        if (other.tag == "Player")
+        {
+            Collect();
         }
     }
 }
