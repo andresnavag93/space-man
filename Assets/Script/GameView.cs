@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameView : MonoBehaviour
 {
     public Text coinsText, scoreText, maxScoreText;
+    public Text gameOverScoreText, gameOverMaxScoreText;
     private PlayerController controller;
 
     // Start is called before the first frame update
@@ -25,6 +26,8 @@ public class GameView : MonoBehaviour
             coinsText.text = coins.ToString();
             scoreText.text = "Score: " + score.ToString("f1");
             maxScoreText.text = "MaxScore: " + maxScore.ToString("f1");
+            gameOverScoreText.text = "Score: " + score.ToString("f1");
+            gameOverMaxScoreText.text = "MaxScore: " + maxScore.ToString("f1");
         }
     }
 }

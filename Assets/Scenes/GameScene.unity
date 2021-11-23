@@ -3262,6 +3262,8 @@ MonoBehaviour:
   coinsText: {fileID: 280671069}
   scoreText: {fileID: 1806953756}
   maxScoreText: {fileID: 469547859}
+  gameOverScoreText: {fileID: 643137030}
+  gameOverMaxScoreText: {fileID: 823144199}
 --- !u!114 &1821384707
 MonoBehaviour:
   m_ObjectHideFlags: 0
