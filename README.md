@@ -1,6 +1,6 @@
 # Space Man
 
-- 2D Endless platform where a spaceman run endless grabbing coins and avoiding enemies (Education Purposes)
+- 2D platform game where a spaceman run endless grabbing coins and avoiding enemies (Education Purposes).
 
 ### Technologies / Tools
 
