@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float jumpForce = 6f;
-    public float runningSpeed = 2f;
+    public float runningSpeed = 6f;
 
     [SerializeField]
     float raycastLong = 1.5f;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private int healthPoints, manaPoints;
-    public const int INITIAL_HEALTH = 100, INITIAL_MANA = 15,
+    public const int INITIAL_HEALTH = 200, INITIAL_MANA = 15,
         MAX_HEALTH = 200, MAX_MANA = 30,
         MIN_HEALTH = 10, MIN_MANA = 0;
 
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         this.transform.position = startPosition;
         this.rigidBody.velocity = Vector2.zero;
+        runningSpeed = 4f;
 
         GameObject camera = GameObject.Find("Main Camera");
         camera.GetComponent<CameraFollow>().ResetCameraPosition();
